@@ -1,0 +1,16 @@
+[Unit]
+Description=Shutdown KVM VMs before host shutdown or reboot
+Before=shutdown.target reboot.target
+Requires=libvirtd.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/true
+ExecStop=/bin/sh -c "/home/hcucumber/check-to-shutdown.sh"
+TimeoutSec=600
+RemainAfterTimeout=yes
+
+
+[Install]
+WantedBy=multi-user.target shutdown.target reboot.target
